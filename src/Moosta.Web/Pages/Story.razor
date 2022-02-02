@@ -1,0 +1,23 @@
+﻿@page "/story"
+@attribute [Authorize]
+@inject PlatformServiceClient client
+
+<PageTitle>Index</PageTitle>
+
+<MudButton OnClick="GetCompletion">Get Story</MudButton>
+
+<MudTextField @bind-Value="completion.CompletionText" ReadOnly="true" Label="The story" Lines="10" />
+
+@code{
+    private MoostaCompletion completion = new MoostaCompletion();
+
+    async Task GetCompletion()
+    {
+        var req = new MoostaCompletionRequest
+            {
+                Prompt = "A fun story about 4 little girls named Grace, Laura, Katie and Audrey"
+            };
+
+        completion = await client.GetCompletionAsync(req);
+    }
+}

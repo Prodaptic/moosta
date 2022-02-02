@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32113.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moosta.Web", "Moosta.Web\Moosta.Web.csproj", "{8600F0D7-81D6-469B-99FF-6F0C19CDCD95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moosta.Themes", "Moosta.Themes\Moosta.Themes.csproj", "{338F1069-9659-4B44-AA06-B330D5D126A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moosta.Functions.Platform", "Moosta.Functions.Platform\Moosta.Functions.Platform.csproj", "{42F39A38-EBCC-4DCF-924F-A4339F5C7544}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moosta.Shared.Platform", "Moosta.Shared.Platform\Moosta.Shared.Platform.csproj", "{61BB6BCA-5FA5-4A4E-93B2-800E4D931BDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Moosta.Core", "Moosta.Core\Moosta.Core.csproj", "{E2AA66B4-691F-4D9D-8147-CF908948758E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{89E9C4F1-B8C0-43B6-A4E2-138D4CD656F7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8600F0D7-81D6-469B-99FF-6F0C19CDCD95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8600F0D7-81D6-469B-99FF-6F0C19CDCD95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8600F0D7-81D6-469B-99FF-6F0C19CDCD95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8600F0D7-81D6-469B-99FF-6F0C19CDCD95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{338F1069-9659-4B44-AA06-B330D5D126A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{338F1069-9659-4B44-AA06-B330D5D126A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{338F1069-9659-4B44-AA06-B330D5D126A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{338F1069-9659-4B44-AA06-B330D5D126A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42F39A38-EBCC-4DCF-924F-A4339F5C7544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42F39A38-EBCC-4DCF-924F-A4339F5C7544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42F39A38-EBCC-4DCF-924F-A4339F5C7544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42F39A38-EBCC-4DCF-924F-A4339F5C7544}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61BB6BCA-5FA5-4A4E-93B2-800E4D931BDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61BB6BCA-5FA5-4A4E-93B2-800E4D931BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61BB6BCA-5FA5-4A4E-93B2-800E4D931BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61BB6BCA-5FA5-4A4E-93B2-800E4D931BDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2AA66B4-691F-4D9D-8147-CF908948758E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2AA66B4-691F-4D9D-8147-CF908948758E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2AA66B4-691F-4D9D-8147-CF908948758E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2AA66B4-691F-4D9D-8147-CF908948758E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36A41B23-9E39-4AD6-9DB8-23F39BD37475}
+	EndGlobalSection
+EndGlobal

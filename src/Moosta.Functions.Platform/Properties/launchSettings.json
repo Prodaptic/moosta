@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Moosta.Functions.Platform": {
+      "commandName": "Project",
+      "hotReloadEnabled": true
+    }
+  }
+}
