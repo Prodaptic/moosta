@@ -8,6 +8,9 @@
         "location": {
             "value": "eastus2"
         },
+        "locationName": {
+            "value": "East US 2"
+        },
         "skuStaticApp": {
             "value": "Free"
         },
@@ -16,6 +19,9 @@
         },
         "staticAppDomain": {
             "value": "dev.moosta.co"
+        },
+        "cosmosDefaultExperience": {
+            "value": "Core (SQL)"
         }
     }
 }
