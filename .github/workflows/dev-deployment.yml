@@ -25,4 +25,21 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ env.AZURE_RG }}
         template: ./infra.bicep
+        parameters: ./dev-infra.parameters.json
         failOnStdErr: false
+
+  build_and_deploy_web:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Moosta Web
+    environment: dev
+
+    steps:
+
+    #Build and Deploy Blazor Web App
+    - uses: actions/checkout@v2
+    - name: Build And Deploy Azure Static Web App
+      uses: Azure/static-web-apps-deploy@v1
+      with:
+        azure_static_web_apps_api_token: ${{ env.AZURE_STATIC_WEB_APPS_API_TOKEN }} 
+        app_location: /src/Moost.Web
+        app_artifact_location: wwwroot
