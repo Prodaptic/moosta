@@ -6,20 +6,23 @@ on:
 
 jobs:
   infrastructure:
+    name: Infrastructure
     runs-on: ubuntu-latest
     environment: dev
     steps:
 
       # Checkout code
-    - uses: actions/checkout@main
+    - name: Checkount
+      uses: actions/checkout@main
 
       # Log into Azure
-    - uses: azure/login@v1
+    - name: Azure Login
+      uses: azure/login@v1
       with:
         creds: ${{ secrets.INFRASTRUCTURE_CREDENTIALS  }}
 
       # Deploy Bicep file
-    - name: deploy
+    - name: Deploy
       uses: azure/arm-deploy@v1
       with:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
@@ -43,3 +46,4 @@ jobs:
         azure_static_web_apps_api_token: ${{ env.AZURE_STATIC_WEB_APPS_API_TOKEN }} 
         app_location: /src/Moost.Web
         app_artifact_location: wwwroot
+        action: upload
