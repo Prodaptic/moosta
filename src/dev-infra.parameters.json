@@ -2,6 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "subscriptionId":{
+            "value": "84346150-8539-4bfa-9045-b1b8e7cbbb45"
+        },
+        "resourceGroup":{
+            "value": "moosta-dev"
+        },
+        "adminEmail": {
+            "value": "justin.mccullough@prodaptic.com"
+        },
+        "organizationName": {
+            "value": "Moosta"
+        },
         "nameSuffix": {
             "value": "-dev"
         },
@@ -22,6 +34,33 @@
         },
         "cosmosDefaultExperience": {
             "value": "Core (SQL)"
+        },
+        "platformFunctionUse32BitWorkerProcess":{
+            "value": true
+        },
+        "platformFunctionLinuxFxVersion":{
+            "value": "DOTNET|6.0"
+        },
+        "platformFunctionSku": {
+            "value": "Dynamic"
+        },
+        "platformFunctionSkuCode": {
+            "value": "Y1"
+        },
+        "platformFunctionWorkerSize": {
+            "value": "0"
+        },
+        "platformFunctionWorkerSizeId": {
+            "value": "0"
+        },
+        "platformFunctionNumberOfWorkers": {
+            "value": "1"
+        },
+        "platformFunctionStorageAccountName":{
+            "value": "moostaplatformstoragedev"
+        },
+        "apimTier":{
+            "value": "Developer"
         }
     }
 }
