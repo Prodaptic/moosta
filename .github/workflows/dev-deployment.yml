@@ -1,12 +1,7 @@
 name: Development Deployment
 
 env:
-  AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: Moosta.Functions.Platform/publish
-  CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
-  WORKING_DIRECTORY: Moosta.Functions.Platform
-  AZURE_APIM_RESOURCE_PATH: /
 
 on:
   push:
@@ -58,6 +53,13 @@ jobs:
 
   build-and-deploy-platform-function:
     runs-on: ubuntu-latest
+    env:
+      AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: Moosta.Functions.Platform/publish
+      CONFIGURATION: Release
+      WORKING_DIRECTORY: src/Moosta.Functions.Platform
+      AZURE_APIM_RESOURCE_PATH: /
+      
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
