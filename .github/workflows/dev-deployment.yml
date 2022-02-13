@@ -53,7 +53,8 @@ jobs:
 
   build-and-deploy-platform-function:
     runs-on: ubuntu-latest
-    env:
+    environment: dev
+    env: 
       AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
       AZURE_FUNCTIONAPP_PACKAGE_PATH: Moosta.Functions.Platform/publish
       CONFIGURATION: Release
