@@ -59,7 +59,7 @@ jobs:
       CONFIGURATION: Release
       WORKING_DIRECTORY: src/Moosta.Functions.Platform
       AZURE_APIM_RESOURCE_PATH: /
-      
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -75,7 +75,7 @@ jobs:
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:
-        app-name: ${{ secrets.AZURE_FUNCTIONAPP_NAME }}
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
         publish-profile: ${{ secrets.moosta_functions_platform_dev_cf24 }}
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
     # Log into Azure
