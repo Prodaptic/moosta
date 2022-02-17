@@ -12,9 +12,8 @@ param cosmosDefaultExperience string
 param platformFunctionUse32BitWorkerProcess bool
 param platformFunctionSku string
 param platformFunctionSkuCode string
-param platformFunctionWorkerSize string
-param platformFunctionWorkerSizeId string
-param platformFunctionNumberOfWorkers string
+param platformFunctionWorkerSizeId int
+param platformFunctionNumberOfWorkers int
 param platformFunctionStorageAccountName string
 param platformFunctionLinuxFxVersion string
 param apimTier string
@@ -24,14 +23,14 @@ var functionsHostingPlanName = 'moosta-functions-hosting${nameSuffix}'
 var appInsightsWorkspaceName = 'MoostaAppInsights${nameSuffix}'
 
 //Mosta.Web
-resource moostaWeb 'Microsoft.Web/staticSites@2019-12-01-preview' = {
+resource moostaWeb 'Microsoft.Web/staticSites@2021-03-01' = {
   name: 'moosta-web${nameSuffix}'
   location: location
   tags: {}
   properties: {}
   sku: {
-    Tier: skuStaticApp
-    Name: skuCodeStaticApp
+    tier: skuStaticApp
+    name: skuCodeStaticApp
   }
   resource moostaWebDomains 'customDomains@2021-01-15' = {
     name: staticAppDomain
@@ -125,21 +124,19 @@ resource moostaPlatformFunction 'Microsoft.Web/sites@2018-11-01' = {
   ]
 }
 
-resource moostaPlatformFunction_HostingPlan 'Microsoft.Web/serverfarms@2018-11-01' = {
+resource moostaPlatformFunction_HostingPlan 'Microsoft.Web/serverfarms@2021-03-01' = {
   name: functionsHostingPlanName
   location: location
   kind: 'linux'
   tags: {}
   properties: {
-    name: functionsHostingPlanName
-    workerSize: platformFunctionWorkerSize
-    workerSizeId: platformFunctionWorkerSizeId
-    numberOfWorkers: platformFunctionNumberOfWorkers
+    targetWorkerSizeId: platformFunctionWorkerSizeId
+    targetWorkerCount: platformFunctionNumberOfWorkers
     reserved: true
   }
   sku: {
-    Tier: platformFunctionSku
-    Name: platformFunctionSkuCode
+    tier: platformFunctionSku
+    name: platformFunctionSkuCode
   }
   dependsOn: []
 }

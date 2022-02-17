@@ -47,14 +47,11 @@
         "platformFunctionSkuCode": {
             "value": "Y1"
         },
-        "platformFunctionWorkerSize": {
-            "value": "0"
-        },
         "platformFunctionWorkerSizeId": {
-            "value": "0"
+            "value": 0
         },
         "platformFunctionNumberOfWorkers": {
-            "value": "1"
+            "value": 1
         },
         "platformFunctionStorageAccountName":{
             "value": "moostaplatformstoragedev"
