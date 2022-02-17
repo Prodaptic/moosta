@@ -100,5 +100,9 @@ jobs:
       with:
         creds: ${{ secrets.INFRASTRUCTURE_CREDENTIALS  }}
     
-    - name: Set Moosta Platform Function set-appsettings
-      run: az functionapp config appsettings set --name moosta-functions-platform-dev --resource-group moosta-dev --settings OpenAIEngine=${{secrets.OPENAIENGINE}} OpenAIKey=${{secrets.OPENAIKEY}} OidcApiAuthSettings:Audience=${{secrets.OidcApiAuthSettings_Audience}}
+    - name: Set Moosta Platform Function AppSettings
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: |
+          az functionapp config appsettings set --name moosta-functions-platform-dev --resource-group moosta-dev --settings OpenAIEngine=${{secrets.OPENAIENGINE}} OpenAIKey=${{secrets.OPENAIKEY}} OidcApiAuthSettings:Audience=${{secrets.OidcApiAuthSettings_Audience}}
