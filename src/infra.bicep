@@ -27,7 +27,11 @@ resource moostaWeb 'Microsoft.Web/staticSites@2021-03-01' = {
   name: 'moosta-web${nameSuffix}'
   location: location
   tags: {}
-  properties: {}
+  properties: {
+    provider: 'GitHub'
+    repositoryUrl: 'https://github.com/justmccullough/moosta'
+    branch: 'main'
+  }
   sku: {
     tier: skuStaticApp
     name: skuCodeStaticApp
