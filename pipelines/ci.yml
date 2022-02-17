@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: 'src/*.sln'
@@ -23,20 +23,23 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    projects: 'src/*.csproj'
+    projects: '**/*.csproj'
     feedsToUse: 'select'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: 'src/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+    projects: '**/*.csproj'
+  displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: 'src/*.tests.csproj'
+    projects: '**/*.tests.csproj'
     
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
+    arguments: '--configuration $(buildConfiguration)'
     publishWebProjects: false
-    projects: 'src/*.csproj'
+    projects: '**/*.csproj'
