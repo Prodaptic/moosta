@@ -85,8 +85,12 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.INFRASTRUCTURE_CREDENTIALS  }}
-    #- name: Import API into Azure API Management
-      run: az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group ${{ secrets.AZURE_RG }} --service-name ${{ secrets.AZURE_APIM_SERVICENAME }} --api-id ${{ secrets.AZURE_APIM_API_ID }} --specification-url "${{ secrets.AZURE_APIM_SWAGGERURL }}" --specification-format OpenApi --subscription-required false
+    - name: Import API into Azure API Management
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: |
+          az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group ${{ secrets.AZURE_RG }} --service-name ${{ secrets.AZURE_APIM_SERVICENAME }} --api-id ${{ secrets.AZURE_APIM_API_ID }} --specification-url "${{ secrets.AZURE_APIM_SWAGGERURL }}" --specification-format OpenApi --subscription-required false
   
   set-appsettings:
     name: Set App Settings
@@ -105,4 +109,14 @@ jobs:
       with:
         azcliversion: 2.30.0
         inlineScript: |
-          az functionapp config appsettings set --name moosta-functions-platform-dev --resource-group moosta-dev --settings OpenAIEngine=${{secrets.OPENAIENGINE}} OpenAIKey=${{secrets.OPENAIKEY}} OidcApiAuthSettings:Audience=${{secrets.OidcApiAuthSettings_Audience}}
+          az functionapp config appsettings set --name moosta-functions-platform-dev \
+          --resource-group moosta-dev \
+          --settings \
+          OidcApiAuthSettings:Audience=${{secrets.OidcApiAuthSettings_Audience}} \
+          OidcApiAuthSettings:MetadataAddress=${{secrets.OidcApiAuthSettings_MetadataAddress}} \
+          OidcApiAuthSettings:IssuerUrl=${{secrets.OidcApiAuthSettings_IssuerUrl}} \
+          OidcApiAuthSettings:IssuerUrl=${{secrets.OidcApiAuthSettings_IssuerUrl}} \
+          CosmosEndPointUrl=${{secrets.CosmosEndPointUrl}} \
+          CosmosAccountKey=${{secrets.CosmosAccountKey}} \
+          OpenAIEngine=${{secrets.OPENAIENGINE}} \
+          OpenAIKey=${{secrets.OPENAIKEY}} \
