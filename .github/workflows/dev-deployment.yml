@@ -48,10 +48,10 @@ jobs:
       with:
         azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }} 
         app_location: src/Moosta.Web
-        app_artifact_location: wwwroot
+        app_artifact_location: publish/wwwroot
         action: upload
         app_build_command: dotnet publish --configuration Release /p:EnvironmentName=dev
-        
+
   build-and-deploy-platform-function:
     runs-on: ubuntu-latest
     name: Build and Deploy Platform Function
