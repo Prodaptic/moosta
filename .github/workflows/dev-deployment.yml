@@ -50,7 +50,8 @@ jobs:
         app_location: src/Moosta.Web
         app_artifact_location: wwwroot
         action: upload
-
+        app_build_command: dotnet publish --configuration Release /p:EnvironmentName=dev
+        
   build-and-deploy-platform-function:
     runs-on: ubuntu-latest
     name: Build and Deploy Platform Function
