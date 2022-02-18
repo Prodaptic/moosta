@@ -111,13 +111,13 @@ jobs:
       uses: azure/CLI@v1
       with:
         azcliversion: 2.30.0
-        inlineScript: |
-          az functionapp config appsettings set --name moosta-functions-platform-dev --resource-group moosta-dev --settings OpenAIEngine=${{secrets.OPENAIENGINE}} OpenAIKey=${{secrets.OPENAIKEY}}
-        #OidcApiAuthSettings:Audience=${{secrets.OidcApiAuthSettings_Audience}}
-        # OidcApiAuthSettings:MetadataAddress=${{secrets.OidcApiAuthSettings_MetadataAddress}}
-        #OidcApiAuthSettings:IssuerUrl=${{secrets.OidcApiAuthSettings_IssuerUrl}}
-        #OidcApiAuthSettings:IssuerUrl=${{secrets.OidcApiAuthSettings_IssuerUrl}}
-        #CosmosEndPointUrl=${{secrets.CosmosEndPointUrl}}
-        #CosmosAccountKey=${{secrets.CosmosAccountKey}}
-        #OpenAIEngine=${{secrets.OPENAIENGINE}}
-        #OpenAIKey=${{secrets.OPENAIKEY}}
+        inlineScript: >
+          az functionapp config appsettings set --name moosta-functions-platform-dev --resource-group moosta-dev
+          --settings
+          OidcApiAuthSettings__Audience=${{secrets.OidcApiAuthSettings_Audience}}
+          OidcApiAuthSettings__MetadataAddress=${{secrets.OidcApiAuthSettings_MetadataAddress}}
+          OidcApiAuthSettings__IssuerUrl=${{secrets.OidcApiAuthSettings_IssuerUrl}}
+          CosmosEndPointUrl=${{secrets.CosmosEndPointUrl}}
+          CosmosAccountKey=${{secrets.CosmosAccountKey}}
+          OpenAIEngine=${{secrets.OPENAIENGINE}}
+          OpenAIKey=${{secrets.OPENAIKEY}}
