@@ -29,7 +29,7 @@ resource moostaWeb 'Microsoft.Web/staticSites@2021-03-01' = {
   tags: {}
   properties: {
     provider: 'GitHub'
-    repositoryUrl: 'https://github.com/justmccullough/moosta'
+    repositoryUrl: 'https://github.com/Prodaptic/moosta'
     branch: 'main'
   }
   sku: {
