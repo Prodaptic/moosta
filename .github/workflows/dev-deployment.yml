@@ -57,7 +57,7 @@ jobs:
     environment: dev
     env: 
       AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: ./output
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
       CONFIGURATION: Release
       WORKING_DIRECTORY: src/Moosta.Functions.Platform
       AZURE_APIM_RESOURCE_PATH: /
