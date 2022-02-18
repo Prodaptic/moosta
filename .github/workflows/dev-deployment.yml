@@ -57,7 +57,7 @@ jobs:
     environment: dev
     env: 
       AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
-      AZURE_FUNCTIONAPP_PACKAGE_PATH: ./publish
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: ./output
       CONFIGURATION: Release
       WORKING_DIRECTORY: src/Moosta.Functions.Platform
       AZURE_APIM_RESOURCE_PATH: /
@@ -68,12 +68,14 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-    - name: Restore
-      run: dotnet restore "${{ env.WORKING_DIRECTORY }}"
-    - name: Build
-      run: dotnet build "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-restore
-    - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
+
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      shell: bash
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        dotnet build --configuration Release --output ./output
+        popd
+
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:
