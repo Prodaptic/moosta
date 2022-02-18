@@ -1,5 +1,4 @@
 using System.Net;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -10,10 +9,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Moosta.Shared.Platform.Models;
-using Moosta.Functions.Platform.Configurations;
-using Microsoft.Azure.Cosmos;
 using AzureFunctions.OidcAuthentication;
-using System.Text.Json;
 using OpenAI_API;
 using System;
 
@@ -31,7 +27,7 @@ namespace Moosta.Functions.Platform
         }
 
         [FunctionName("GetCompletion")]
-        [OpenApiOperation(operationId: "completion", tags: new[] { "completion" }, Summary = "Completion", Description = "This returns a completion from the passed in prompt", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiOperation(operationId: "GetCompletion", tags: new[] { "completion" }, Summary = "Completion", Description = "This returns a completion from the passed in prompt", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("Bearer", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiParameter("prompt", Summary = "The prompt to return the completion", Type = typeof(string), In = ParameterLocation.Query, Visibility = OpenApiVisibilityType.Important)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(MoostaCompletion), Summary = "The response", Description = "This returns the response")]

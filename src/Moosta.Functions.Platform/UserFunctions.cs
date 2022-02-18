@@ -34,7 +34,7 @@ namespace Moosta.Functions.Platform
             this.apiAuthentication = apiAuthentication;
         }
 
-        [OpenApiOperation(operationId: "user", tags: new[] { "user" }, Summary = "Get User", Description = "This returns a Moosta user", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiOperation(operationId: "GetUser", tags: new[] { "user" }, Summary = "Get User", Description = "This returns a Moosta user", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("Bearer", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiParameter("id", Summary = "The requested user's id", Type = typeof(string), In = ParameterLocation.Query, Visibility = OpenApiVisibilityType.Important)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(MoostaUser), Summary = "The response", Description = "This returns the response")]
@@ -67,7 +67,7 @@ namespace Moosta.Functions.Platform
             }
         }
 
-        [OpenApiOperation(operationId: "user", tags: new[] { "user" }, Summary = "Get Me", Description = "This returns the current authenticated user", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiOperation(operationId: "GetMe", tags: new[] { "user" }, Summary = "Get Me", Description = "This returns the current authenticated user", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("Bearer", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(MoostaUser), Summary = "The response", Description = "This returns the response")]
 
@@ -125,7 +125,7 @@ namespace Moosta.Functions.Platform
             }
         }
 
-        [OpenApiOperation(operationId: "user", tags: new[] { "user" }, Summary = "Put User", Description = "This updates the current user", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiOperation(operationId: "UpdateUser", tags: new[] { "user" }, Summary = "Put User", Description = "This updates the current user", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("Bearer", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiParameter("user", Summary = "A Moosta User", Type = typeof(MoostaUser), In = ParameterLocation.Query, Visibility = OpenApiVisibilityType.Important)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Summary = "The response", Description = "This returns the user's id")]
@@ -171,7 +171,7 @@ namespace Moosta.Functions.Platform
             }
         }
 
-        [OpenApiOperation(operationId: "user", tags: new[] { "user" }, Summary = "Create User", Description = "This verifies the current user and creates a DB record if necessary", Visibility = OpenApiVisibilityType.Important)]
+        [OpenApiOperation(operationId: "CreateUser", tags: new[] { "user" }, Summary = "Create User", Description = "This verifies the current user and creates a DB record if necessary", Visibility = OpenApiVisibilityType.Important)]
         [OpenApiSecurity("Bearer", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Summary = "The response", Description = "This returns the user's id")]
         [FunctionName("CreateUser")]
