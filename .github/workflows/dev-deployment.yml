@@ -47,7 +47,7 @@ jobs:
       with:
         azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }} 
         app_location: src/Moosta.Web
-        output: 'wwwroot'
+        output_location: 'wwwroot'
         action: upload
 
   build-and-deploy-platform-function:
