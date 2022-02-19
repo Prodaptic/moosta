@@ -15,7 +15,9 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="MudBlazor" Version="6.0.6" />
   </ItemGroup>
-
+  <ItemGroup>
+    <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Moosta.Shared.Platform\Moosta.Shared.Platform.csproj" />
     <ProjectReference Include="..\Moosta.Themes\Moosta.Themes.csproj" />
