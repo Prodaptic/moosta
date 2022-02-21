@@ -11,7 +11,7 @@ jobs:
   infrastructure:
     name: Infrastructure
     runs-on: ubuntu-latest
-    environment: dev
+    environment: prod
     steps:
 
       # Checkout code
@@ -31,14 +31,14 @@ jobs:
         subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
         resourceGroupName: ${{ secrets.AZURE_RG }}
         template: ./src/infra.bicep
-        parameters: ./src/dev-infra.parameters.json
+        parameters: ./src/prod-infra.parameters.json
         failOnStdErr: false
 
   set-appsettings:
     name: Set App Settings
     runs-on: ubuntu-latest
     needs: infrastructure
-    environment: dev
+    environment: prod
     steps:
 
     # Log into Azure
@@ -52,11 +52,11 @@ jobs:
       with:
         azcliversion: 2.30.0
         inlineScript: >
-          az functionapp config appsettings set --name moosta-functions-platform-dev --resource-group moosta-dev
+          az functionapp config appsettings set --name ${{secrets.AZURE_PLATFORM_FUNCTION_NAME}} --resource-group ${{secrets.AZURE_RG}}
           --settings
-          OidcApiAuthSettings__Audience=${{secrets.OidcApiAuthSettings_Audience}}
-          OidcApiAuthSettings__MetadataAddress=${{secrets.OidcApiAuthSettings_MetadataAddress}}
-          OidcApiAuthSettings__IssuerUrl=${{secrets.OidcApiAuthSettings_IssuerUrl}}
+          OidcApiAuthSettings__Audience=${{secrets.OidcApiAuthSettings__Audience}}
+          OidcApiAuthSettings__MetadataAddress=${{secrets.OidcApiAuthSettings__MetadataAddress}}
+          OidcApiAuthSettings__IssuerUrl=${{secrets.OidcApiAuthSettings__IssuerUrl}}
           CosmosEndPointUrl=${{secrets.CosmosEndPointUrl}}
           CosmosAccountKey=${{secrets.CosmosAccountKey}}
           OpenAIEngine=${{secrets.OPENAIENGINE}}
@@ -75,54 +75,53 @@ jobs:
     - name: Build And Deploy Moosta.Web
       uses: Azure/static-web-apps-deploy@v1
       with:
-        azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }} 
+        azure_static_web_apps_api_token: ${{ secrets.MOOSTA_WEB_DEPLOY_TOKEN }} 
         app_location: 'src/Moosta.Web'
         api_location: 'src/Moosta.Functions.Platform'
         output_location: 'wwwroot'
         action: upload
 
-#  build-and-deploy-platform-function:
-#    runs-on: ubuntu-latest
-#    name: Build and Deploy Platform Function
-#    needs: [infrastructure, set-appsettings]
-#    environment: dev
-#    env: 
-#      AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
-#      AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/Moosta.Functions.Platform'
-#      CONFIGURATION: Release
-#      WORKING_DIRECTORY: src/Moosta.Functions.Platform
-#      AZURE_APIM_RESOURCE_PATH: /
+  build-and-deploy-platform-function:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Platform Function
+    needs: [infrastructure, set-appsettings]
+    environment: prod
+    env: 
+      AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/Moosta.Functions.Platform'
+      CONFIGURATION: Release
+      WORKING_DIRECTORY: src/Moosta.Functions.Platform
+      AZURE_APIM_RESOURCE_PATH: /
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-#    steps:
-#    - uses: actions/checkout@v2
-#    - name: Setup Dotnet
-#      uses: actions/setup-dotnet@v1
-#      with:
-#        dotnet-version: ${{ env.DOTNET_VERSION }}
+    - name: 'Resolve Project Dependencies Using Dotnet'
+      shell: bash
+      run: |
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        dotnet build --configuration Release --output ./output
+        popd
 
-#   - name: 'Resolve Project Dependencies Using Dotnet'
-#      shell: bash
-#      run: |
-#        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-#        dotnet build --configuration Release --output ./output
-#        popd
-
- #   - name: Deploy to Azure Function App
- #     uses: Azure/functions-action@v1
- #     with:
- #       app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
- #       slot-name: 'production'
-  #     publish-profile: ${{ secrets.moosta_functions_platform_dev_cf24 }}
-  #      package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+    - name: Deploy to Azure Function App
+      uses: Azure/functions-action@v1
+      with:
+        app-name: ${{secrets.AZURE_PLATFORM_FUNCTION_NAME}}
+        slot-name: 'production'
+        publish-profile: ${{ secrets.MOOSTA_PLATFORM_FUNCTION_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
     # Log into Azure
-  #  - name: Azure Login
-  #    uses: azure/login@v1
-  #    with:
-  #      creds: ${{ secrets.INFRASTRUCTURE_CREDENTIALS  }}
-  #  - name: Import API into Azure API Management
-  #    uses: azure/CLI@v1
-  #    with:
-  #      azcliversion: 2.30.0
-  #      inlineScript: |
-  #        az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group ${{ secrets.AZURE_RG }} --service-name ${{ secrets.AZURE_APIM_SERVICENAME }} --api-id ${{ secrets.AZURE_APIM_API_ID }} --specification-url "${{ secrets.AZURE_APIM_SWAGGERURL }}" --specification-format OpenApi --subscription-required false
+#    - name: Azure Login
+#      uses: azure/login@v1
+#      with:
+#        creds: ${{ secrets.INFRASTRUCTURE_CREDENTIALS  }}
+#    - name: Import API into Azure API Management
+#      uses: azure/CLI@v1
+#      with:
+#        azcliversion: 2.30.0
+#        inlineScript: |
+#          az apim api import --path "${{ env.AZURE_APIM_RESOURCE_PATH }}" --resource-group ${{ secrets.AZURE_RG }} --service-name ${{ secrets.AZURE_APIM_SERVICENAME }} --api-id ${{ secrets.AZURE_APIM_API_ID }} --specification-url "${{ secrets.AZURE_APIM_SWAGGERURL }}" --specification-format OpenApi --subscription-required false

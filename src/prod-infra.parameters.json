@@ -6,7 +6,7 @@
             "value": "84346150-8539-4bfa-9045-b1b8e7cbbb45"
         },
         "resourceGroup":{
-            "value": "moosta-dev"
+            "value": "moosta-prod"
         },
         "adminEmail": {
             "value": "justin.mccullough@prodaptic.com"
@@ -15,7 +15,7 @@
             "value": "Moosta"
         },
         "nameSuffix": {
-            "value": "-dev"
+            "value": "-prod"
         },
         "location": {
             "value": "eastus2"
@@ -30,7 +30,7 @@
             "value": "Free"
         },
         "staticAppDomain": {
-            "value": "dev.moosta.co"
+            "value": "moosta.co"
         },
         "cosmosDefaultExperience": {
             "value": "Core (SQL)"
@@ -54,10 +54,10 @@
             "value": 1
         },
         "platformFunctionStorageAccountName":{
-            "value": "moostaplatformstoragedev"
+            "value": "moostaplatformprod"
         },
         "apimTier":{
-            "value": "Developer"
+            "value": "Basic"
         }
     }
 }

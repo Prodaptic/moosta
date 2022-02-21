@@ -39,7 +39,7 @@ resource moostaWeb 'Microsoft.Web/staticSites@2021-03-01' = {
   resource moostaWebDomains 'customDomains@2021-01-15' = {
     name: staticAppDomain
     properties: {
-      validationMethod: 'cname-delegation'
+      validationMethod: 'dns-txt-token'
     }    
   }
 }
