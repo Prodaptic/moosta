@@ -86,7 +86,7 @@ jobs:
     needs: [infrastructure, set-appsettings]
     environment: prod
     env: 
-      AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-dev
+      AZURE_FUNCTIONAPP_NAME: moosta-functions-platform-prod
       AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/Moosta.Functions.Platform'
       CONFIGURATION: Release
       WORKING_DIRECTORY: src/Moosta.Functions.Platform
