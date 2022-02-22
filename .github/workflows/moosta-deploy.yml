@@ -111,7 +111,7 @@ jobs:
         app-name: ${{secrets.AZURE_PLATFORM_FUNCTION_NAME}}
         slot-name: 'production'
         publish-profile: ${{ secrets.MOOSTA_PLATFORM_FUNCTION_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
 
     # Log into Azure
 #    - name: Azure Login
