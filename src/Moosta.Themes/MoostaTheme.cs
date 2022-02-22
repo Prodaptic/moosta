@@ -4,13 +4,14 @@ namespace Moosta.Themes
 {
     public class MoostaTheme : MudTheme
     {
-        private const string _primaryOrange = "#FF914D";
+        private const string _primaryBlue = "#4FA1FF";
+        private const string _secondaryBlue = "#1A3656";
         public MoostaTheme()
         {
             Palette = new Palette()
             {
-                Primary = _primaryOrange,
-                AppbarBackground = _primaryOrange
+                Primary = _primaryBlue,
+                AppbarBackground = _primaryBlue
             };
 
             Shadows = new Shadow();

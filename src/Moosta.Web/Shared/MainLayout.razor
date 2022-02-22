@@ -6,29 +6,22 @@
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-            <img src="/img/KlatchlyTransparent.png" alt="Moosta" />
+        <MudLink Href="/" Class="mr-16">
+            <MudImage Src="/img/MoostaLogo.png" Alt="Moosta">
+            </MudImage>
+        </MudLink>
+        <MudButton
+            Variant="Variant.Text"
+            Link="/Story">Stories
+        </MudButton>
         <MudSpacer />
         <LoginDisplay />
         <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
-        <MudDrawerHeader>
-            <img src="/img/KlatchlyLogo.png" alt="Moosta" />
-        </MudDrawerHeader>
-        <NavMenu></NavMenu>
-    </MudDrawer>
     <MudMainContent>
         @Body
     </MudMainContent>
 </MudLayout>
 @code {
     private MoostaTheme _currentTheme = new MoostaTheme();
-
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
 }
