@@ -8,12 +8,6 @@
         "resourceGroup":{
             "value": "moosta-prod"
         },
-        "adminEmail": {
-            "value": "justin.mccullough@prodaptic.com"
-        },
-        "organizationName": {
-            "value": "Moosta"
-        },
         "nameSuffix": {
             "value": "-prod"
         },
@@ -55,9 +49,6 @@
         },
         "platformFunctionStorageAccountName":{
             "value": "moostaplatformprod"
-        },
-        "apimTier":{
-            "value": "Basic"
         }
     }
 }

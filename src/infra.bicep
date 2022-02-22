@@ -1,7 +1,5 @@
 param subscriptionId string
 param resourceGroup string
-param adminEmail string
-param organizationName string
 param nameSuffix string
 param location string
 param locationName string
@@ -16,7 +14,6 @@ param platformFunctionWorkerSizeId int
 param platformFunctionNumberOfWorkers int
 param platformFunctionStorageAccountName string
 param platformFunctionLinuxFxVersion string
-param apimTier string
 
 var appInsightsPlanName = 'moosta-insights${nameSuffix}'
 var functionsHostingPlanName = 'moosta-functions-hosting${nameSuffix}'
@@ -36,8 +33,14 @@ resource moostaWeb 'Microsoft.Web/staticSites@2021-03-01' = {
     tier: skuStaticApp
     name: skuCodeStaticApp
   }
-  resource moostaWebDomains 'customDomains@2021-01-15' = {
+  resource moostaWebDomain 'customDomains@2021-01-15' = {
     name: staticAppDomain
+    properties: {
+      validationMethod: 'dns-txt-token'
+    }    
+  }
+  resource moostaWebDomainWWW 'customDomains@2021-01-15' = {
+    name: 'www.${staticAppDomain}'
     properties: {
       validationMethod: 'dns-txt-token'
     }    
@@ -179,24 +182,4 @@ resource appInsightsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-08-
   name: appInsightsWorkspaceName
   location: locationName
   properties: {}
-}
-
-//Moosta API Management
-resource apimMoostaAPI 'Microsoft.ApiManagement/service@2019-01-01' = {
-  name: 'moosta-apim${nameSuffix}'
-  location: location
-  tags: {}
-  sku: {
-    name: apimTier
-  }
-  identity:{
-    type: 'SystemAssigned'
-  } 
-  properties: {
-    publisherEmail: adminEmail
-    publisherName: organizationName
-    virtualNetworkType: 'None'
-  }
-  dependsOn: [
-  ]
 }
