@@ -1,9 +1,25 @@
 ﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject IDialogService dialogService
 
-<RemoteAuthenticatorView Action="@Action" />
+<RemoteAuthenticatorView Action="@Action">
+    <CompletingLoggingIn>
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="ma-16"/>
+    </CompletingLoggingIn>
+    <CompletingLogOut>
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="ma-16"/>
+    </CompletingLogOut>
+    <LoggingIn>
+        <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="ma-16"/>
+    </LoggingIn>
+</RemoteAuthenticatorView>
 
 @code {
     [Parameter] public string? Action { get; set; }
+
+    private void OpenDialog()
+    {
+        dialogService.Show<LoadingDialog>();
+    }
 
 }
