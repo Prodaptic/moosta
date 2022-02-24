@@ -2,22 +2,59 @@
 @attribute [Authorize]
 @inject PlatformServiceClient client
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Moosta - Create a story</PageTitle>
 
-<MudButton OnClick="GetCompletion">Get Story</MudButton>
 
-<MudTextField @bind-Value="completion.CompletionText" ReadOnly="true" Label="The story" Lines="10" />
+<MudGrid Spacing="3" Justify="Justify.Center" Class="pa-8">
+    <MudItem xs="6">
+        <MudText Typo="Typo.h5">Enter your story prompt</MudText>
+        <MudPaper>
+            
+            <MudTextField @bind-value="@promptText" T="string" Variant="Variant.Text" Text="@promptText" Lines="5" />
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="3">
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="GetCompletion">Generate Story</MudButton>
+    </MudItem>
+    <MudItem xs="12">
+        <MudText Typo="Typo.h5">Your Spark</MudText>
+        <MudPaper>
+            @if (isGenerating)
+            {
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="ma-16" />
+            }
+            else
+            {
+                <MudTextField @bind-Value="completion.CompletionText" ReadOnly="true" Lines="20" />
+            }
+        </MudPaper>
+    </MudItem>
+</MudGrid>
 
-@code{
+
+
+@code {
     private MoostaCompletion completion = new MoostaCompletion();
+
+    string promptText = "A fun story about 3 kids who like to play at the park";
+    bool isGenerating = false;
 
     async Task GetCompletion()
     {
-        var req = new MoostaCompletionRequest
-            {
-                Prompt = "A fun story about 4 little girls named Grace, Laura, Katie and Audrey"
-            };
+        isGenerating = true;
 
-        completion = await client.GetCompletionAsync(req);
+        try
+        {
+            var req = new MoostaCompletionRequest
+                {
+                    Prompt = promptText
+                };
+
+            completion = await client.GetCompletionAsync(req);
+        }
+        finally
+        {
+            isGenerating = false;
+        }
     }
 }

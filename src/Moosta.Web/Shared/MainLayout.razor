@@ -1,25 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
 <MudThemeProvider Theme="_currentTheme" />
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="1" Class="pa-2">
+    <MudAppBar Elevation="1" Class="pa-4">
         <MudLink Href="/">
             <MudImage Src="/img/MoostaLogoWhite.png" Alt="Moosta">
             </MudImage>
         </MudLink>
-        <MudSpacer />
-        <MudButton
-            Variant="Variant.Text"
-            Link="/Story">Stories
-        </MudButton>
+       <MudSpacer />
+        <MudButton Variant="Variant.Text" Link="/Story">Stories</MudButton>
         <LoginDisplay />
-        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
     </MudAppBar>
     <MudMainContent>
-        @Body
+        <MudContainer MaxWidth="MaxWidth.Medium" Class="ma-8">
+            @Body
+        </MudContainer>
     </MudMainContent>
 </MudLayout>
 @code {
