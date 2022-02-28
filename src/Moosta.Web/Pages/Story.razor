@@ -2,14 +2,12 @@
 @attribute [Authorize]
 @inject PlatformServiceClient client
 
-<PageTitle>Moosta - Create a story</PageTitle>
-
+<PageTitle>Moosta - Create a spark</PageTitle>
 
 <MudGrid Spacing="3" Justify="Justify.Center" Class="pa-8">
     <MudItem xs="6">
-        <MudText Typo="Typo.h5">Enter your story prompt</MudText>
+        <MudText Typo="Typo.h6">Type some text to get started</MudText>
         <MudPaper>
-            
             <MudTextField @bind-value="@promptText" T="string" Variant="Variant.Text" Text="@promptText" Lines="5" />
         </MudPaper>
     </MudItem>
@@ -17,17 +15,20 @@
         <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="GetCompletion">Generate Story</MudButton>
     </MudItem>
     <MudItem xs="12">
-        <MudText Typo="Typo.h5">Your Spark</MudText>
-        <MudPaper>
-            @if (isGenerating)
+        @if (isGenerating)
+        {
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="ma-16" />
+        }
+        else
+        {
+            if (!string.IsNullOrWhiteSpace(completion.CompletionText))
             {
-                <MudProgressCircular Color="Color.Primary" Indeterminate="true" Class="ma-16" />
+                <MudText Typo="Typo.h6">Here you go</MudText>
             }
-            else
-            {
+            <MudPaper>
                 <MudTextField @bind-Value="completion.CompletionText" ReadOnly="true" Lines="20" />
-            }
-        </MudPaper>
+            </MudPaper>
+        }
     </MudItem>
 </MudGrid>
 
