@@ -19,6 +19,7 @@
     <TrimmerRootAssembly Include="Microsoft.Authentication.WebAssembly.Msal" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Moosta.Core\Moosta.Core.csproj" />
     <ProjectReference Include="..\Moosta.Shared.Platform\Moosta.Shared.Platform.csproj" />
     <ProjectReference Include="..\Moosta.Themes\Moosta.Themes.csproj" />
   </ItemGroup>

@@ -40,8 +40,17 @@ namespace Moosta.Web.Models
                     moostaUser = await response.Content.ReadFromJsonAsync<MoostaUser>();
                 }
 
+                if(!string.IsNullOrEmpty(moostaUser.Roles))
+                { 
                 ((ClaimsIdentity)initialUser.Identity)
                     .AddClaim(new Claim("roles", moostaUser.Roles));
+                }
+
+                if (!string.IsNullOrEmpty(moostaUser.Id))
+                {
+                    ((ClaimsIdentity)initialUser.Identity)
+                    .AddClaim(new Claim("moostaid", moostaUser.Id));
+                }
             }
 
             return initialUser;

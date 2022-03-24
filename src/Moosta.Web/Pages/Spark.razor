@@ -1,0 +1,14 @@
+﻿@page "/spark"
+@attribute [Authorize]
+@inject PlatformServiceClient client
+@inject NavigationManager navmanager
+
+<PageTitle>Moosta - Create a spark</PageTitle>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var idea = await client.CreateIdeaAsync();
+        navmanager.NavigateTo($"/idea/{idea.Id}");
+    }
+}

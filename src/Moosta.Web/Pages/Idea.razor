@@ -1,4 +1,4 @@
-﻿@page "/story"
+﻿@page "/idea/{id}"
 @attribute [Authorize]
 @inject PlatformServiceClient client
 
@@ -35,6 +35,9 @@
 
 
 @code {
+    [Parameter]  
+    public string? Id { get; set; }
+
     private MoostaCompletion completion = new MoostaCompletion();
 
     string promptText = "A fun story about 3 kids who like to play at the park";

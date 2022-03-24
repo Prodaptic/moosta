@@ -7,27 +7,27 @@ namespace Moosta.Shared.Platform.Models
     {
         [JsonProperty("id")]
         [JsonPropertyName("id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [JsonProperty("name")]
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [JsonProperty("authid")]
         [JsonPropertyName("authid")]
-        public string AuthId { get; set; }
+        public string? AuthId { get; set; }
 
         [JsonProperty("registereddate")]
         [JsonPropertyName("registereddate")]
-        public int RegisteredDate { get; set; }
+        public long RegisteredDate { get; set; }
 
         [JsonProperty("email")]
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonProperty("roles")]
         [JsonPropertyName("roles")]
-        public string Roles { get; set; }
+        public string? Roles { get; set; }
 
     }
 }

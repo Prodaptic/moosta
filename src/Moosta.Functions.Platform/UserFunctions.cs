@@ -127,13 +127,14 @@ namespace Moosta.Functions.Platform
 
         [OpenApiOperation(operationId: "UpdateUser", tags: new[] { "user" }, Summary = "Put User", Description = "This updates the current user")]
         [OpenApiSecurity("Bearer", SecuritySchemeType.Http, Scheme = OpenApiSecuritySchemeType.Bearer, BearerFormat = "JWT")]
+        [OpenApiParameter("id", Summary = "The user's id to update", Type = typeof(string), In = ParameterLocation.Path, Required = true, Visibility = OpenApiVisibilityType.Important)]
         [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Summary = "The response", Description = "This returns the user's id")]
         [FunctionName("PutUser")]
         public async Task<IActionResult> PutUser(
-           [HttpTrigger(AuthorizationLevel.Function, "put", Route = "user")] HttpRequest req,
-           ILogger log)
+           [HttpTrigger(AuthorizationLevel.Function, "put", Route = "user/{id}")] HttpRequest req,
+           ILogger log, string id)
         {
-            log.LogInformation($"Put user request received");
+            log.LogInformation($"Put user request received for id: {id}");
 
             // Authenticate the user
             var authResult = await apiAuthentication.AuthenticateAsync(req.Headers);
@@ -196,7 +197,7 @@ namespace Moosta.Functions.Platform
             var user = new MoostaUser
             {
                 Id = IdentifierTools.GenerateId(),
-                RegisteredDate = DateTime.Now.ToEpoch(),
+                RegisteredDate = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
                 AuthId = oid,
                 Name = authResult.User.Identity.Name,
                 Email = email,

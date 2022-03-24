@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using shortid;
+using shortid.Configuration;
 
 namespace Moosta.Core
 {
     public static class IdentifierTools
     {
+        private static readonly GenerationOptions _options = new GenerationOptions
+        {
+            UseNumbers = true,
+            UseSpecialCharacters = false,
+            Length = 16
+        };
+
         public static string GenerateId()
         {
-            var id = CSharpVitamins.ShortGuid.NewGuid();
-            return id.ToString();
+            return ShortId.Generate(_options);
         }
     }
 }

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-using Moosta.Shared.Platform;
+﻿using Moosta.Shared.Platform;
 using Moosta.Shared.Platform.Models;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace Moosta.Web.Clients
 {
@@ -15,6 +13,15 @@ namespace Moosta.Web.Clients
             _client = client;
         }
 
+        public async Task<MoostaCompletion> GetCompletionAsync(MoostaCompletionRequest request)
+        {
+            var result = await _client.GetFromJsonAsync<MoostaCompletion>($"/completion?prompt={request.Prompt}");
+            if (result == null)
+                throw new HttpRequestException("Unable to execute completion");
+            return result;
+        }
+
+        #region User
         public async Task<MoostaUser> CreateUserAsync()
         {
             var result = await _client.PostAsync($"/user", null);
@@ -26,19 +33,6 @@ namespace Moosta.Web.Clients
             return user;
         }
 
-        public async Task<MoostaCompletion> GetCompletionAsync(MoostaCompletionRequest request)
-        {
-            var result = await _client.GetFromJsonAsync<MoostaCompletion>($"/completion?prompt={request.Prompt}");
-            if (result == null)
-                throw new HttpRequestException("Unable to execute completion");
-            return result;
-        }
-
-        public MoostaUser GetUser(string id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<MoostaUser> GetMeAsync()
         {
             var result = await _client.GetFromJsonAsync<MoostaUser>($"/user/me");
@@ -47,9 +41,47 @@ namespace Moosta.Web.Clients
             return result;
         }
 
-        public MoostaUser UpdateUser(MoostaUser user)
+        #endregion
+
+        #region Idea
+        public async Task<MoostaIdea> CreateIdeaAsync()
         {
-            throw new NotImplementedException();
+            var result = await _client.PostAsync($"/idea", null);
+
+            var idea = await result.Content.ReadFromJsonAsync<MoostaIdea>();
+            if (idea == null)
+                throw new HttpRequestException("Failed to create the idea");
+
+            return idea;
         }
+
+        public async Task<MoostaIdea> GetIdeaAsync(string id)
+        {
+            var result = await _client.GetFromJsonAsync<MoostaIdea>($"/idea/{id}");
+            if (result == null)
+                throw new HttpRequestException("Idea Not Found");
+            return result;
+        }
+
+        public async Task<IEnumerable<MoostaIdea>> GetIdeasAsync()
+        {
+            var result = await _client.GetFromJsonAsync<IEnumerable<MoostaIdea>>($"/idea");
+            if (result == null)
+                throw new HttpRequestException("Could not retrieve ideas");
+            return result;
+        }
+
+        public async Task<MoostaIdea> UpdateIdeaAsync(string id, MoostaIdea idea)
+        {
+            var result = await _client.PutAsJsonAsync($"/idea/{id}", idea);
+
+            var ideaResult = await result.Content.ReadFromJsonAsync<MoostaIdea>();
+            if (ideaResult == null)
+                throw new HttpRequestException("Failed to create the idea");
+
+            return ideaResult;
+        }
+
+        #endregion
     }
 }
